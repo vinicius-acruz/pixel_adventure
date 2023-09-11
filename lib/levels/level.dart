@@ -9,6 +9,12 @@ class Level extends World {
   FutureOr<void> onLoad() async {
     level = await TiledComponent.load('level-01.tmx', Vector2.all(16));
 
+    if (level != null) {
+      print('Level loaded successfully!');
+    } else {
+      print('Failed to load level-01.tmx');
+    }
+
     add(level);
     //test
 

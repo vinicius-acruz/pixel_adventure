@@ -8,7 +8,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Flame.device.fullScreen();
   Flame.device.setLandscape();
-// Teste info 
+
   PixelAdventure game = PixelAdventure();
   runApp(GameWidget(game: kDebugMode ? PixelAdventure() : game));
 }
