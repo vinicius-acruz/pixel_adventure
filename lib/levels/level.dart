@@ -10,7 +10,7 @@ class Level extends World {
     level = await TiledComponent.load('level-01.tmx', Vector2.all(16));
 
     add(level);
-
+    //test
     return super.onLoad();
   }
 }
