@@ -30,6 +30,10 @@ flutter:
   assets:
     - assets/tiles/
     - assets/images/Terrain/
+    - assets/images/Main Characters/Ninja Frog/
+    - assets/images/Main Characters/Pink Man/
+    - assets/images/Main Characters/Virtual Guy/
+    - assets/images/Main Characters/Mask Dude/
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

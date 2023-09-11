@@ -8,11 +8,22 @@
     ],
     "fileStates": {
         "level-01.tmx": {
-            "scale": 1.5,
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 319.99999999999994,
-                "y": 184
+                "x": 299,
+                "y": 210
+            }
+        },
+        "level-02.tmx": {
+            "scale": 1.0702343749999998,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 320.4905467552377,
+                "y": 184.0718300605884
             }
         }
     },
