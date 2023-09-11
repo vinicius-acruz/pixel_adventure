@@ -7,7 +7,7 @@ import 'package:pixel_adventure/levels/level.dart';
 class PixelAdventure extends FlameGame {
   @override
   Color backgroundColor() => const Color(0xFF211F30);
-
+//teste
   late final CameraComponent cam;
   final world = Level();
 
