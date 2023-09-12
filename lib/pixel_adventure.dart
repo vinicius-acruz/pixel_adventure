@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:html';
-import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
@@ -15,6 +13,7 @@ class PixelAdventure extends FlameGame
   late final CameraComponent cam;
   Player player = Player(character: 'Mask Dude');
   late JoystickComponent joystick;
+  bool showJoystick = true; // choose keyboard or joystick
 
   @override
   FutureOr<void> onLoad() async {
@@ -35,14 +34,19 @@ class PixelAdventure extends FlameGame
 
     addAll([cam, world]);
 
-    addJoystick();
+    if (showJoystick) {
+      addJoystick();
+    }
 
     return super.onLoad();
   }
 
   @override
   void update(double dt) {
-    updateJoystick();
+    if (showJoystick) {
+      updateJoystick();
+    }
+
     super.update(dt);
   }
 
@@ -75,7 +79,7 @@ class PixelAdventure extends FlameGame
       case JoystickDirection.right:
       case JoystickDirection.upRight:
       case JoystickDirection.downRight:
-        player.playerDirection = PlayerDirection.left;
+        player.playerDirection = PlayerDirection.right;
         break;
       default:
         player.playerDirection = PlayerDirection.none;
