@@ -29,6 +29,6 @@
 </data>
  </layer>
  <objectgroup id="2" name="Spawnpoints">
-  <object id="1" name="Player" type="Player" x="92.5031" y="239.2" width="32" height="32"/>
+  <object id="1" name="Player" type="Player" x="351.325" y="236.397" width="32" height="32"/>
  </objectgroup>
 </map>
