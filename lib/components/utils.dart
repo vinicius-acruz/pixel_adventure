@@ -9,12 +9,15 @@ bool checkCollision(player, block) {
   final blockWidth = block.width;
   final blockHeight = block.height;
 
-  final fixeX = player.scale.x < 0
+  final fixedX = player.scale.x < 0
       ? playerX - playerWidth
       : playerX; //Fix the player flipping reference switch
+  final fixedY = block.isPlatform
+      ? playerY + playerHeight
+      : playerY; // Sets player Y reference when its a platform
 
-  return (playerY < blockY + blockHeight && // top of player < block bottom
+  return (fixedY < blockY + blockHeight && // top of player < block bottom
       playerY + playerHeight > blockY && // bottom of player > block top
-      fixeX < blockX + blockWidth && // player left < block right
-      fixeX + playerWidth > blockX); // player right > block left
+      fixedX < blockX + blockWidth && // player left < block right
+      fixedX + playerWidth > blockX); // player right > block left
 }

@@ -13,7 +13,7 @@ class PixelAdventure extends FlameGame
   late final CameraComponent cam;
   Player player = Player(character: 'Mask Dude');
   late JoystickComponent joystick;
-  bool showJoystick = true; // choose keyboard or joystick
+  bool showJoystick = false; // choose keyboard or joystick
 
   @override
   FutureOr<void> onLoad() async {
