@@ -164,8 +164,7 @@ class Player extends SpriteAnimationGroupComponent
           }
           if (velocity.x < 0) {
             velocity.x = 0;
-            position.x =
-                block.x + block.width + width + hitbox.width + hitbox.offsetX;
+            position.x = block.x + block.width + hitbox.width + hitbox.offsetX;
             break;
           }
         }
