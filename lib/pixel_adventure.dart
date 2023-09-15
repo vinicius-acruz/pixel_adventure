@@ -10,29 +10,19 @@ class PixelAdventure extends FlameGame
     with HasKeyboardHandlerComponents, DragCallbacks, HasCollisionDetection {
   @override
   Color backgroundColor() => const Color(0xFF211F30);
-  late final CameraComponent cam;
+  late CameraComponent cam;
   Player player = Player(character: 'Mask Dude');
   late JoystickComponent joystick;
   bool showJoystick = false; // choose keyboard or joystick
+  List<String> levelNames = ['level-01', 'level-01'];
+  int currentLevelIndex = 0;
 
   @override
   FutureOr<void> onLoad() async {
     // Load all images into cache
     await images.loadAllImages();
 
-    final world = Level(
-      player: player,
-      levelName: 'level-01',
-    );
-
-    // Set camera settings
-    cam = CameraComponent.withFixedResolution(
-        world: world, width: 640, height: 360);
-
-    cam.viewfinder.anchor = Anchor.topLeft;
-    cam.viewfinder.zoom = 0.5;
-
-    addAll([cam, world]);
+    _loadLevel();
 
     if (showJoystick) {
       addJoystick();
@@ -85,5 +75,34 @@ class PixelAdventure extends FlameGame
         player.horizontalMovement = 0;
         break;
     }
+  }
+
+  void loadNextLevel() {
+    removeWhere((component) => component is Level);
+
+    if (currentLevelIndex < levelNames.length - 1) {
+      currentLevelIndex++;
+      _loadLevel();
+    } else {
+      // no more levels - add function later
+    }
+  }
+
+  void _loadLevel() {
+    Future.delayed(const Duration(seconds: 1), () {
+      Level world = Level(
+        player: player,
+        levelName: levelNames[currentLevelIndex],
+      );
+
+      // Set camera settings
+      cam = CameraComponent.withFixedResolution(
+          world: world, width: 640, height: 360);
+
+      cam.viewfinder.anchor = Anchor.topLeft;
+      cam.viewfinder.zoom = 0.5;
+
+      addAll([cam, world]);
+    });
   }
 }
