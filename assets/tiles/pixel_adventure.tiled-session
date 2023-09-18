@@ -14,7 +14,7 @@
             "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 319.66666666666663,
+                "x": 318.33333333333337,
                 "y": 184
             }
         },
@@ -41,8 +41,8 @@
     "project": "pixel_adventure.tiled-project",
     "property.type": "float",
     "recentFiles": [
-        "level-02.tmx",
-        "level-01.tmx"
+        "level-01.tmx",
+        "level-02.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
