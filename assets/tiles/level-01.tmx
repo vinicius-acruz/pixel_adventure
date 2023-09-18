@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="56">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="57">
  <tileset firstgid="1" source="pixel_adventure.tsx"/>
  <layer id="1" name="Background" width="40" height="23">
   <properties>
@@ -22,22 +22,22 @@
 24,24,113,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,13,14,14,15,0,0,0,0,0,0,0,0,0,0,29,30,30,31,111,24,24,
 24,24,113,40,41,41,42,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,40,41,42,0,0,29,30,30,31,111,24,24,
 24,24,113,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,29,30,30,31,111,24,24,
-24,24,113,35,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,29,30,30,31,111,112,24,
-24,24,113,8,8,8,8,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,8,9,7,8,9,0,0,29,30,30,31,111,112,24,
-24,24,113,30,30,30,30,31,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,29,30,31,29,30,31,0,0,29,30,30,31,111,24,24,
-24,24,113,52,52,52,52,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,51,52,53,51,52,53,0,0,51,30,30,31,111,24,24,
+24,24,113,35,0,0,0,0,0,0,0,0,0,0,7,8,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,29,30,30,31,111,112,24,
+24,24,113,8,8,8,8,9,0,0,0,0,0,0,29,30,31,0,0,0,0,0,0,0,0,7,8,9,7,8,9,0,0,29,30,30,31,111,112,24,
+24,24,113,30,30,30,30,31,0,0,0,0,0,0,29,30,31,0,0,0,0,0,0,0,0,29,30,31,29,30,31,0,0,29,30,30,31,111,24,24,
+24,24,113,52,52,52,52,53,0,0,0,0,0,0,51,52,53,0,0,0,0,0,0,0,0,51,52,53,51,52,53,0,0,51,30,30,31,111,24,24,
 24,24,114,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,115,24,24,
 24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,
 24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24
 </data>
  </layer>
  <objectgroup id="2" name="Spawnpoints">
-  <object id="7" name="Player" type="Player" x="448" y="80" width="32" height="32"/>
+  <object id="7" name="Player" type="Player" x="96" y="240" width="32" height="32"/>
   <object id="35" name="Bananas" type="Fruit" x="80" y="96" width="32" height="32"/>
   <object id="38" name="Cherries" type="Fruit" x="80" y="144" width="32" height="32"/>
   <object id="39" name="Apple" type="Fruit" x="80" y="192" width="32" height="32"/>
-  <object id="40" name="Cherries" type="Fruit" x="160" y="160" width="32" height="32"/>
-  <object id="41" name="Cherries" type="Fruit" x="192" y="160" width="32" height="32"/>
+  <object id="40" name="Cherries" type="Fruit" x="128" y="256" width="32" height="32"/>
+  <object id="41" name="Cherries" type="Fruit" x="176" y="256" width="32" height="32"/>
   <object id="42" name="Cherries" type="Fruit" x="176" y="128" width="32" height="32"/>
   <object id="43" name="Cherries" type="Fruit" x="304" y="176" width="32" height="32"/>
   <object id="44" name="Cherries" type="Fruit" x="336" y="176" width="32" height="32"/>
@@ -78,5 +78,6 @@
   <object id="33" x="48" y="256" width="16" height="16"/>
   <object id="34" x="48" y="272" width="80" height="48"/>
   <object id="52" x="528" y="192" width="64" height="128"/>
+  <object id="56" x="224" y="256" width="48" height="64"/>
  </objectgroup>
 </map>
