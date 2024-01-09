@@ -5,6 +5,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pixel_adventure/components/jump_button.dart';
 import 'package:pixel_adventure/components/level.dart';
+import 'package:pixel_adventure/components/menu_button.dart';
 import 'components/player.dart';
 
 class PixelAdventure extends FlameGame
@@ -18,12 +19,14 @@ class PixelAdventure extends FlameGame
   late CameraComponent cam;
   Player player = Player(character: 'Mask Dude');
   late JoystickComponent joystick;
-  bool showControls = false; // choose keyboard or joystick
+  bool showControls = true; // choose keyboard or joystick
   bool playSounds = true;
   double soundVolume = 1.0;
 
   List<String> levelNames = ['level-01', 'level-01'];
   int currentLevelIndex = 0;
+
+  final pauseOverlayIdentifier = 'PauseMenu';
 
   @override
   FutureOr<void> onLoad() async {
@@ -36,6 +39,8 @@ class PixelAdventure extends FlameGame
       addJoystick();
       add(JumpButton());
     }
+    // Add menu button
+    add(MenuButton(showMenuOverlay, hideMenuOverlay));
 
     return super.onLoad();
   }
@@ -47,6 +52,16 @@ class PixelAdventure extends FlameGame
     }
 
     super.update(dt);
+  }
+
+  void showMenuOverlay() {
+    overlays.add(pauseOverlayIdentifier); // Show the overlay
+    pauseEngine(); // Optionally pause the game
+  }
+
+  void hideMenuOverlay() {
+    overlays.remove(pauseOverlayIdentifier); // Hide the overlay
+    resumeEngine(); // Optionally resume the game
   }
 
   void addJoystick() {
