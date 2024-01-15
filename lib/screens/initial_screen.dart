@@ -13,15 +13,35 @@ class InitialScreenState extends State<InitialScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
-          child: Text('START'),
-          onPressed: () {
-            // Navigate to character selection screen
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => CharacterScreen()),
-            );
-          },
+        child: Stack(
+          children: [
+            Container(
+              constraints: BoxConstraints.expand(),
+              //set image
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/HUD/pixel 1.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  child: Text('START'),
+                  onPressed: () {
+                    // Navigate to character selection screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CharacterScreen()),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

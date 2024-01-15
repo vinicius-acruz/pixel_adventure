@@ -14,10 +14,17 @@ class PixelAdventure extends FlameGame
         DragCallbacks,
         HasCollisionDetection,
         TapCallbacks {
+  late final String characterType; // Add a field for character type
+  late final Player player;
+
+  PixelAdventure({required this.characterType}) {
+    player = Player(character: characterType); // Use the character type here
+  }
+
   @override
   Color backgroundColor() => const Color(0xFF211F30);
   late CameraComponent cam;
-  Player player = Player(character: 'Mask Dude');
+  //Player player = Player(character: 'Ninja Frog');
   late JoystickComponent joystick;
   bool showControls = true; // choose keyboard or joystick
   bool playSounds = true;
