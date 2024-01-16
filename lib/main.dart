@@ -1,8 +1,5 @@
-import 'package:flame/game.dart';
 import 'package:flame/flame.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:pixel_adventure/pixel_adventure.dart';
 import 'package:pixel_adventure/screens/initial_screen.dart';
 
 void main() async {
@@ -10,15 +7,18 @@ void main() async {
   await Flame.device.fullScreen();
   await Flame.device.setLandscape();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Pixel Adventure',
       home: InitialScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

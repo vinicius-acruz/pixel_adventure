@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:pixel_adventure/components/menu_button.dart';
 import 'package:pixel_adventure/pixel_adventure.dart';
 import 'package:pixel_adventure/screens/initial_screen.dart';
+import 'package:animated_background/animated_background.dart';
 
 class CharacterScreen extends StatefulWidget {
   const CharacterScreen({super.key});
@@ -12,7 +13,8 @@ class CharacterScreen extends StatefulWidget {
   State<CharacterScreen> createState() => _CharacterScreenState();
 }
 
-class _CharacterScreenState extends State<CharacterScreen> {
+class _CharacterScreenState extends State<CharacterScreen>
+    with TickerProviderStateMixin {
   final PixelAdventure game = PixelAdventure(characterType: 'Mask Dude');
   final PageController _pageController = PageController();
 
@@ -51,7 +53,8 @@ class _CharacterScreenState extends State<CharacterScreen> {
                 game.overlays.remove('PauseMenu');
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CharacterScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const CharacterScreen()),
                 );
               },
               // Quit game
@@ -60,7 +63,8 @@ class _CharacterScreenState extends State<CharacterScreen> {
                 game.overlays.remove('HUD');
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => InitialScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const InitialScreen()),
                 );
               },
             );
@@ -68,6 +72,29 @@ class _CharacterScreenState extends State<CharacterScreen> {
         },
       ),
     ));
+  }
+
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..repeat(reverse: true);
+
+    _animation = Tween<double>(begin: 0.9, end: 1.05).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -78,92 +105,134 @@ class _CharacterScreenState extends State<CharacterScreen> {
     final isFirstCharacter = _selectedCharacterIndex == 0;
 
     return Scaffold(
-      body: Center(
-        child: Container(
-          // container only in the screen safe area
-          constraints: BoxConstraints(),
-          width: MediaQuery.of(context).size.width * 0.8,
-          color: Colors.transparent,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Select Your Character', style: TextStyle(fontSize: 24)),
-              SizedBox(height: 20),
-              Container(
-                height: 180,
-                width: double.infinity,
-                child: Stack(
-                  alignment: Alignment.center,
+      backgroundColor: const Color(0xFF1B4048),
+      body: AnimatedBackground(
+        behaviour: RandomParticleBehaviour(
+          options: ParticleOptions(
+            image: Image.asset('assets/images/HUD/sparkle_1.png'),
+            spawnMinSpeed: 30.0,
+            spawnMaxSpeed: 70.0,
+            spawnMinRadius: 7.0,
+            spawnMaxRadius: 15.0,
+            particleCount: 20,
+          ),
+          paint: Paint()..style = PaintingStyle.fill,
+        ),
+        vsync: this,
+        child: Center(
+          child: Container(
+            // container only in the screen safe area
+            constraints: const BoxConstraints(),
+            width: MediaQuery.of(context).size.width * 0.8,
+            color: Colors.transparent,
+            child: Stack(
+              children: [
+                AnimatedBuilder(
+                  animation: _animation,
+                  builder: (context, child) {
+                    return Transform.scale(
+                      scale: _animation.value,
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.35,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                                'assets/images/HUD/select_character.png'),
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.30),
                     SizedBox(
-                      width: 150, // Set the width
-                      height: 200, // Set the height
-                      child: PageView.builder(
-                        controller: _pageController,
-                        itemCount: characterPaths.length,
-                        onPageChanged: (index) {
-                          setState(() {
-                            _selectedCharacterIndex = index;
-                          });
-                        },
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: FittedBox(
-                              fit: BoxFit.contain, // Set the BoxFit
-                              child: Image.asset(characterPaths[index]),
+                      width: double.infinity,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          SizedBox(
+                            width: 150, // Set the width
+                            height: 120, // Set the height
+                            child: PageView.builder(
+                              controller: _pageController,
+                              itemCount: characterPaths.length,
+                              onPageChanged: (index) {
+                                setState(() {
+                                  _selectedCharacterIndex = index;
+                                });
+                              },
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: FittedBox(
+                                    fit: BoxFit.contain, // Set the BoxFit
+                                    child: Image.asset(characterPaths[index]),
+                                  ),
+                                );
+                              },
                             ),
-                          );
-                        },
+                          ),
+                          if (!isFirstCharacter) // Only show if not the first character
+                            Positioned(
+                              left: 100,
+                              child: IconButton(
+                                onPressed: () {
+                                  _pageController.previousPage(
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeInOut,
+                                  );
+                                },
+                                icon: Image.asset(
+                                  'assets/images/Menu/Buttons/Previous.png',
+                                  height: 50,
+                                  fit: BoxFit.cover,
+                                ), // Replace with your left arrow image
+                              ),
+                            ),
+                          if (!isLastCharacter) // Only show if not the last character
+                            Positioned(
+                              right: 100,
+                              child: IconButton(
+                                onPressed: () {
+                                  _pageController.nextPage(
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeInOut,
+                                  );
+                                },
+                                icon: Image.asset(
+                                  'assets/images/Menu/Buttons/Next.png',
+                                  height: 50,
+                                  fit: BoxFit.cover,
+                                ), // Replace with your right arrow image
+                              ),
+                            ),
+                        ],
                       ),
                     ),
-                    if (!isFirstCharacter) // Only show if not the first character
-                      Positioned(
-                        left: 10,
-                        child: IconButton(
-                          icon: Icon(Icons.arrow_back_ios),
-                          onPressed: () {
-                            _pageController.previousPage(
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                            );
-                          },
-                        ),
-                      ),
-                    if (!isLastCharacter) // Only show if not the last character
-                      Positioned(
-                        right: 10,
-                        child: IconButton(
-                          icon: Icon(Icons.arrow_forward_ios),
-                          onPressed: () {
-                            _pageController.nextPage(
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                            );
-                          },
-                        ),
-                      ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    IndividualButton(
+                        animate: false,
+                        onTap: () {},
+                        label: 'Character: ${getSelectedCharacterName()}'),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    IndividualButton(onTap: onTap, label: 'Play'),
+                    const SizedBox(height: 10),
                   ],
                 ),
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Character: ${getSelectedCharacterName()}',
-                style: TextStyle(fontSize: 18),
-              ),
-              SizedBox(height: 20),
-              IndividualButton(onTap: onTap, label: 'Play'),
-              SizedBox(height: 20),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
   }
 }

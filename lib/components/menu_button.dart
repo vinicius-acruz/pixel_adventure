@@ -39,7 +39,8 @@ class MenuOverlay extends StatelessWidget {
   final VoidCallback onGoToCharacterScreen;
   final VoidCallback onQuit;
 
-  MenuOverlay({
+  const MenuOverlay({
+    super.key,
     required this.onResume,
     required this.onGoToCharacterScreen,
     required this.onQuit,
@@ -75,30 +76,84 @@ class MenuOverlay extends StatelessWidget {
   }
 }
 
-class IndividualButton extends StatelessWidget {
-  const IndividualButton({super.key, required this.onTap, required this.label});
+class IndividualButton extends StatefulWidget {
+  const IndividualButton(
+      {super.key,
+      required this.onTap,
+      required this.label,
+      this.animate = true // Default to true, but allows external control
+      });
 
   final VoidCallback onTap;
   final String label;
+  final bool animate; // New property to control animation
+
+  @override
+  IndividualButtonState createState() => IndividualButtonState();
+}
+
+class IndividualButtonState extends State<IndividualButton>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.animate) {
+      // Initialize the animation controller only if animate is true
+      _animationController = AnimationController(
+        vsync: this,
+        duration: const Duration(seconds: 1),
+      )..repeat(reverse: true);
+
+      _animation = Tween<double>(begin: 0.97, end: 1.0).animate(
+        CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    if (widget.animate) {
+      _animationController.dispose();
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      width: 250,
-      decoration: const BoxDecoration(
-        // add a sprite component as a background
-        image: DecorationImage(
-          image: AssetImage('assets/images/HUD/menu_button.png'),
-          fit: BoxFit.fill,
+    if (widget.animate) {
+      return AnimatedBuilder(
+        animation: _animation,
+        builder: (context, child) {
+          return _buildButton(_animation.value);
+        },
+      );
+    } else {
+      return _buildButton(1.0); // No animation, so scale is always 1.0
+    }
+  }
+
+  Widget _buildButton(double scale) {
+    return Transform.scale(
+      scale: scale,
+      child: Container(
+        height: 60,
+        width: 250,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/HUD/menu_button.png'),
+            fit: BoxFit.fill,
+          ),
         ),
-      ),
-      child: TextButton(
-        onPressed: onTap,
-        child: Text(
-          label,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
+        child: TextButton(
+          onPressed: widget.onTap,
+          child: Text(
+            widget.label,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );

@@ -50,7 +50,7 @@ class Level extends World with HasGameRef<PixelAdventure> {
     final spawnPointsLayer = level.tileMap.getLayer<ObjectGroup>('Spawnpoints');
 
     if (spawnPointsLayer != null) {
-      for (final spawnPoint in spawnPointsLayer!.objects) {
+      for (final spawnPoint in spawnPointsLayer.objects) {
         switch (spawnPoint.class_) {
           case 'Player':
             player.position = Vector2(spawnPoint.x, spawnPoint.y);

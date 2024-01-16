@@ -24,9 +24,8 @@ class PixelAdventure extends FlameGame
   @override
   Color backgroundColor() => const Color(0xFF211F30);
   late CameraComponent cam;
-  //Player player = Player(character: 'Ninja Frog');
   late JoystickComponent joystick;
-  bool showControls = true; // choose keyboard or joystick
+  bool showControls = false; // choose keyboard or joystick
   bool playSounds = true;
   double soundVolume = 1.0;
 
